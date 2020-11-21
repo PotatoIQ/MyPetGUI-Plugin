@@ -23,4 +23,6 @@ permissions:
   mypetgui.reload:
     description: Reload the configuration of the plugin "/mypetgui reload".
     default: op
-
+  mypetgui.shop:
+    description: show/hide shop icon based on the permission
+    default: true

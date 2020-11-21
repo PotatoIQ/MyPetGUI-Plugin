@@ -27,6 +27,10 @@ public class GUICommand implements CommandExecutor {
         if(sender instanceof Player) {
             Player player = (Player) sender;
             Plugin plugin = MyPetGUI.getPlugin(MyPetGUI.class);
+            boolean shopPermission = false;
+            if( player.hasPermission("mypetgui.shop")){
+                shopPermission = true;
+            }
             if (plugin.getConfig().getStringList("black_listed_worlds").contains(player.getWorld().getName()) || !player.hasPermission("mypetgui.use")) {
                     player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("lang.messages.no_permission_use")));
             }else {
@@ -46,6 +50,9 @@ public class GUICommand implements CommandExecutor {
                 ItemStack book = new ItemStack(Material.BOOK_AND_QUILL);
                 ItemStack paper = new ItemStack(Material.PAPER);
                 ItemStack cMineCart = new ItemStack(Material.STORAGE_MINECART);
+                if (!shopPermission){
+                    cMineCart = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.GRAY.getDyeData());
+                }
                 ItemStack NameTag = new ItemStack(Material.NAME_TAG);
                 ItemStack gNugget = new ItemStack(Material.GOLD_NUGGET);
                 ItemStack tnt = new ItemStack(Material.TNT);
@@ -157,13 +164,19 @@ public class GUICommand implements CommandExecutor {
                 paper.setItemMeta(paper_meta);
 
                 ItemMeta cMineCart_meta = cMineCart.getItemMeta();
-                cMineCart_meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("lang.mypetgui_icon_title_petshop")));
-                ArrayList<String> cMineCart_lore = new ArrayList<>();
-                for(String lore_title : plugin.getConfig().getStringList("lang.mypetgui_icon_lore_petshop")){
-                    cMineCart_lore.add(ChatColor.translateAlternateColorCodes('&', lore_title));
+                if (shopPermission) {
+                    cMineCart_meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("lang.mypetgui_icon_title_petshop")));
+                    ArrayList<String> cMineCart_lore = new ArrayList<>();
+                    for (String lore_title : plugin.getConfig().getStringList("lang.mypetgui_icon_lore_petshop")) {
+                        cMineCart_lore.add(ChatColor.translateAlternateColorCodes('&', lore_title));
+                    }
+                    cMineCart_meta.setLore(cMineCart_lore);
+                    cMineCart.setItemMeta(cMineCart_meta);
+                } else {
+                    cMineCart_meta.setDisplayName(ChatColor.BLACK + " ");
+                    cMineCart_meta.setLocalizedName(ChatColor.BLACK + " ");
+                    cMineCart.setItemMeta(cMineCart_meta);
                 }
-                cMineCart_meta.setLore(cMineCart_lore);
-                cMineCart.setItemMeta(cMineCart_meta);
 
                 ItemMeta NameTag_meta = NameTag.getItemMeta();
                 NameTag_meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("lang.mypetgui_icon_title_petname")));
@@ -236,7 +249,6 @@ public class GUICommand implements CommandExecutor {
                 }
             }
         }
-
         return true;
     }
 }
