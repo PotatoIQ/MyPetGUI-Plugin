@@ -1,6 +1,7 @@
 package com.tatomc.mypetgui.commands;
 
 import com.tatomc.mypetgui.MyPetGUI;
+import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -192,11 +193,47 @@ public class GUICommand implements CommandExecutor {
                 tnt.setItemMeta(tnt_meta);
 
                 //Put the items in the inventory
-                ItemStack[] menu_items = {filler, chest, beacon, sapling, filler, filler, saddle, lead, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, bed, egg, cMineCart, filler, filler, hopper, dSword, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, book, paper, filler, filler, NameTag, gNugget, tnt, filler};
-                petgui.setContents(menu_items);
-                player.openInventory(petgui);
-
-
+                if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+                    if (PlaceholderAPI.setPlaceholders(player, "%mypet_has_pet%").equalsIgnoreCase("no")) {
+                        ItemStack[] menu_items = {filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, egg, cMineCart, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler};
+                        petgui.setContents(menu_items);
+                        player.openInventory(petgui);
+                    } else {
+                        if (PlaceholderAPI.setPlaceholders(player, "%mypet_skilltree_name%").length() > 1) {
+                            if (PlaceholderAPI.setPlaceholders(player, "%mypet_status%").equalsIgnoreCase("Here")) {
+                                ItemStack[] menu_items = {filler, chest, beacon, sapling, filler, filler, saddle, lead, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, bed, egg, cMineCart, filler, filler, hopper, dSword, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, book, paper, filler, filler, NameTag, gNugget, tnt, filler};
+                                petgui.setContents(menu_items);
+                                player.openInventory(petgui);
+                            } else if (PlaceholderAPI.setPlaceholders(player, "%mypet_status%").equalsIgnoreCase("Dead")) {
+                                ItemStack[] menu_items = {filler, filler, filler, sapling, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, egg, cMineCart, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, book, paper, filler, filler, NameTag, filler, filler, filler};
+                                petgui.setContents(menu_items);
+                                player.openInventory(petgui);
+                            } else if (PlaceholderAPI.setPlaceholders(player, "%mypet_status%").equalsIgnoreCase("Despawned")) {
+                                ItemStack[] menu_items = {filler, filler, filler, sapling, filler, filler, saddle, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, bed, egg, cMineCart, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, book, paper, filler, filler, NameTag, gNugget, filler, filler};
+                                petgui.setContents(menu_items);
+                                player.openInventory(petgui);
+                            }
+                        } else {
+                            if (PlaceholderAPI.setPlaceholders(player, "%mypet_status%").equalsIgnoreCase("Here")) {
+                                ItemStack[] menu_items = {filler, filler, filler, sapling, filler, filler, saddle, lead, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, bed, egg, cMineCart, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, book, filler, filler, filler, NameTag, gNugget, tnt, filler};
+                                petgui.setContents(menu_items);
+                                player.openInventory(petgui);
+                            } else if (PlaceholderAPI.setPlaceholders(player, "%mypet_status%").equalsIgnoreCase("Dead")) {
+                                ItemStack[] menu_items = {filler, filler, filler, sapling, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, egg, cMineCart, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, book, filler, filler, filler, NameTag, filler, filler, filler};
+                                petgui.setContents(menu_items);
+                                player.openInventory(petgui);
+                            } else if (PlaceholderAPI.setPlaceholders(player, "%mypet_status%").equalsIgnoreCase("Despawned")) {
+                                ItemStack[] menu_items = {filler, filler, filler, sapling, filler, filler, saddle, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, bed, egg, cMineCart, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, book, filler, filler, filler, NameTag, gNugget, filler, filler};
+                                petgui.setContents(menu_items);
+                                player.openInventory(petgui);
+                            }
+                        }
+                    }
+                } else {
+                    ItemStack[] menu_items = {filler, chest, beacon, sapling, filler, filler, saddle, lead, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, bed, egg, cMineCart, filler, filler, hopper, dSword, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, filler, book, paper, filler, filler, NameTag, gNugget, tnt, filler};
+                    petgui.setContents(menu_items);
+                    player.openInventory(petgui);
+                }
             }
         }
 

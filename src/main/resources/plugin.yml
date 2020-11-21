@@ -3,6 +3,7 @@ version: ${project.version}
 main: com.tatomc.mypetgui.MyPetGUI
 prefix: MyPetGUI
 depend: [ MyPet ]
+softdepend: [ PlaceholderAPI ]
 authors: [ TatoIQ ]
 description: Addon to MyPet to add a GUI/Menu for MyPet commands.
 website: http://tatomc.com
